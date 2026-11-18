@@ -19,7 +19,7 @@ Routes read HTML form fields, query or update the database, and return rendered 
 
 Signup hashes the password with Werkzeug, inserts a user, and stores `user_id` and `role` in Flask's signed session. Login verifies the password and sets the same values. Logout clears the session. `/dashboard` redirects students to `/student_view` and administrators to `/admin/view`.
 
-Most protected routes compare `session['role']` with a literal role. Flask-Login is initialized and has a user loader, but the handlers do not call `login_user()` or use `login_required`. The current session workflow should therefore be understood separately from Flask-Login authentication. The user model also uses `user_id` without overriding the `UserMixin.get_id()` method, which would need attention when adopting Flask-Login fully.
+Most protected routes compare `session['role']` with a literal role. Flask-Login is initialized and has a user loader, but the handlers do not call `login_user()` or use `login_required`. Authentication currently relies on Flask sessions rather than Flask-Login. The user model uses `user_id` without overriding `UserMixin.get_id()`, so a complete Flask-Login integration would also require that override.
 
 Role checks are incomplete. See the [route reference](routes.md) for the checks actually present.
 
@@ -31,7 +31,7 @@ Role checks are incomplete. See the [route reference](routes.md) for the checks 
 4. Open a job and submit a cover letter. The handler checks for an existing application before inserting another.
 5. Read decisions and scheduled interviews on the student dashboard.
 
-The composite application primary key allows one application per student and job. Applications cannot be withdrawn or edited through the supplied UI.
+The composite application primary key allows one application per student and job. Applications cannot be withdrawn or edited through the UI.
 
 ## Administrator workflow
 
@@ -54,4 +54,4 @@ The homepage embeds a remotely hosted image. There is no JavaScript application 
 
 Interview forms submit a timezone-free `datetime-local` value. The server parses it with `%Y-%m-%dT%H:%M` and stores a naive datetime. No timezone conversion, conflict detection, or future-date validation is implemented. Job timestamps use `datetime.utcnow`; several other timestamps use database defaults.
 
-Salary is a floating-point value with no currency or pay-period field. The UI should not be interpreted as defining either convention.
+Salary is a floating-point value with no currency or pay-period field. The application does not define either convention.

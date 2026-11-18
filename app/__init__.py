@@ -14,7 +14,7 @@ def create_app():
     login_manager.init_app(app)
     
     # Configure Flask-Login login_view to the login route
-    login_manager.login_view = "main.login"  # You can change this to the correct login route if it's different
+    login_manager.login_view = "main.login"
 
     # Register other blueprints if needed (e.g., main)
     from .routes import main

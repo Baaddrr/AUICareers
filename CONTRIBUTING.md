@@ -10,7 +10,7 @@ If a change alters a model, account for existing databases as well as fresh inst
 
 ## Verification
 
-There is no first-party automated test suite in the supplied project. Do not report a change as tested solely because Flask starts. For workflow changes, verify the relevant path using disposable data and report which checks passed or remained blocked.
+The project has no automated test suite. Pull requests should describe the manual checks performed and any workflows that remain untested. Use disposable data for database checks.
 
 A useful manual workflow, after the setup blockers are corrected, is:
 

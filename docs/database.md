@@ -1,6 +1,6 @@
 # Database reference
 
-The seven SQLAlchemy models are defined in `app/models.py`. The configured backend is PostgreSQL. No migrations, SQL schema file, or seed script were supplied.
+The seven SQLAlchemy models are defined in `app/models.py`. The configured backend is PostgreSQL. The repository has no migrations, SQL schema file, or seed script.
 
 `PK` means primary key; `FK` means a database foreign key declared by the model. Unless specified otherwise, non-key fields below are nullable.
 
@@ -16,7 +16,7 @@ The seven SQLAlchemy models are defined in `app/models.py`. The configured backe
 | `Application` / `applications` | Composite integer PK (`student_id`, `job_id`); `job_id` FK to `job.job_id` with `ON DELETE CASCADE`; `cover_letter` text; `status` varchar(20) with database default `pending`; `applied_at` datetime with database `now()` default |
 | `JobInterview` / `job_interview` | `interview_id` integer PK; required `student_id` FK to `users.user_id`; required `job_id` FK to `job.job_id`; required `scheduled_time` datetime |
 
-The table describes the supplied schema, including the undersized password column. Apply the correction in [Local setup](setup.md) before creating accounts.
+The password column is too short for current default Werkzeug hashes. See [Local setup](setup.md) for the required schema change.
 
 ## Relationships
 
@@ -41,8 +41,8 @@ The scheduling page queries `approved` applications. The student dashboard's spe
 
 The application-to-job foreign key specifies cascading deletion, and `Job.applications` also configures delete-orphan behavior. Interviews have a separate job foreign key without an explicit database cascade. Deleting a job with interviews can therefore fail; validate the intended policy before relying on job deletion.
 
-`Job.applications` and `Application.job` are defined separately without `back_populates`. Configuring the supplied models emits a SQLAlchemy overlapping-relationship warning. Mapper configuration succeeds, but the relationships should be reviewed together before changing deletion behavior.
+`Job.applications` and `Application.job` are defined separately without `back_populates`. Configuring the models emits a SQLAlchemy overlapping-relationship warning. Mapper configuration succeeds, but the overlapping relationship definitions need to be reconciled before changing deletion behavior.
 
 ## Schema maintenance
 
-`db.create_all()` is suitable for creating missing tables in a fresh local database. It does not upgrade an existing schema. Introduce versioned migrations before maintaining shared databases. The archive provides no authoritative record of any schema changes previously applied outside the models.
+`db.create_all()` is suitable for creating missing tables in a fresh local database. It does not upgrade an existing schema. Introduce versioned migrations before maintaining shared databases. The repository has no migration history.

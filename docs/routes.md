@@ -2,7 +2,7 @@
 
 All 23 application routes belong to the `main` blueprint in `app/routes.py`. They return HTML or redirects, rather than a JSON API. Flask's generated static route is excluded below.
 
-The access column records handler checks in the supplied code. An admin-looking URL or navigation link does not itself restrict access. `Student` and `Admin` mean a comparison with the role stored in the session. `None` means no authentication or role guard in the handler.
+The access column records handler checks in `app/routes.py`. An admin-looking URL or navigation link does not itself restrict access. `Student` and `Admin` mean a comparison with the role stored in the session. `None` means no authentication or role guard in the handler.
 
 | Method | Path | Endpoint | Access check | Behavior |
 | --- | --- | --- | --- | --- |

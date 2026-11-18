@@ -1,6 +1,6 @@
 # Known issues
 
-These findings originated from the supplied archive. Repository preparation replaced the embedded configuration values with environment variables, added the missing Flask-Login dependency, and excluded the archived Git history, virtual environment, and bytecode. The remaining application issues below are unresolved.
+The following limitations affect local setup, data integrity, and access control.
 
 ## Before public deployment
 
@@ -14,8 +14,8 @@ These findings originated from the supplied archive. Repository preparation repl
 
 ## Setup and data integrity
 
-- **Unpinned dependencies.** A fresh install may differ from the bundled environment. The missing Flask-Login declaration has been added during repository preparation.
-- **Password hash storage.** `users.password` is limited to 100 characters. A default hash generated with bundled Werkzeug 3.1.3 was 162 characters. PostgreSQL account creation can fail until the column is enlarged.
+- **Unpinned dependencies.** `requirements.txt` does not pin package versions, so separate installations may resolve different versions.
+- **Password hash storage.** `users.password` is limited to 100 characters. Werkzeug 3.1.3 generates a 162-character default password hash. PostgreSQL account creation can fail until the column is enlarged.
 - **No schema lifecycle.** There are no migration files, initialization commands, seed scripts, or database dump. The documentation provides manual local setup instructions.
 - **Missing student foreign key on applications.** The ORM join works, but PostgreSQL does not enforce that `applications.student_id` references a user.
 - **Overlapping ORM relationships.** Mapper configuration emits a warning for `Job.applications` and `Application.job`; they are not paired with `back_populates`.
@@ -31,18 +31,3 @@ These findings originated from the supplied archive. Repository preparation repl
 - Standalone templates do not share `base.html` flash rendering, so some confirmations and errors may not be visible on the destination page.
 - Companies require manual insertion. There is no employer account, company editor, password reset, account deletion, rÃ©sumÃ© upload, or notification service.
 - Lists have no pagination. Salary has no currency or period convention. The UI depends on remotely hosted styles, fonts, and a homepage image.
-
-## Verification scope
-
-The documentation review covered all 27 first-party files: six Python files, 20 templates, and `requirements.txt`. The archive also contains Git metadata, a virtual environment, and Python bytecode; those are not application features.
-
-Checks performed using Python 3.13 and the archive's installed dependency libraries:
-
-- Parsed all six Python files and all 20 Jinja templates successfully.
-- Created the Flask application successfully and confirmed 23 application routes.
-- Configured ORM mappers successfully; observed the relationship warning described above.
-- Measured a default Werkzeug password hash against the declared column length.
-
-Relevant bundled versions were Flask 3.1.0, Flask-SQLAlchemy 3.1.1, Flask-Login 0.6.3, SQLAlchemy 2.0.40, Werkzeug 3.1.3, and psycopg2-binary 2.9.10. These are observed versions, not a declared support matrix or a lockfile.
-
-No PostgreSQL instance was created or contacted for this review. Account creation, persistence, deletion behavior, and complete browser workflows were not integration-tested. No first-party test suite or CI configuration was supplied. Syntax checks and application startup do not establish that all workflows succeed.

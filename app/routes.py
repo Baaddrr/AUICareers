@@ -384,7 +384,7 @@ def update_admin_profile():
 
         db.session.commit()
         flash("Admin profile updated successfully.", "success")
-        return redirect(url_for('main.admin_profile'))  # or wherever you want to go
+        return redirect(url_for('main.admin_profile'))
 
     return render_template('update_admin_profile.html', admin=admin)
 

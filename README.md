@@ -34,11 +34,11 @@ Before creating accounts, enlarge the password column to accommodate generated h
 - Werkzeug password hashing
 - Jinja HTML templates, inline CSS, and Tailwind CSS loaded from a CDN
 
-The archive contains a Python 3.13 virtual environment. Dependencies in `requirements.txt` are unpinned, and the project does not declare a supported Python or PostgreSQL version range.
+Dependencies in `requirements.txt` are unpinned. The project does not declare a supported Python or PostgreSQL version range.
 
 ## Run locally
 
-Use a fresh virtual environment rather than the one included in the archive. Run these commands from the directory containing `run.py`:
+Create a virtual environment from the directory containing `run.py`:
 
 ```sh
 python -m venv .venv
@@ -84,7 +84,7 @@ requirements.txt   Dependency manifest
 run.py             Development entry point
 ```
 
-`dashboard.html` is present, but `/dashboard` redirects to a role-specific page rather than rendering it. Styles are defined inside templates; there is no first-party static asset directory in the supplied project.
+`dashboard.html` is present, but `/dashboard` redirects to a role-specific page rather than rendering it. Styles are defined inside templates; there is no first-party static asset directory in the project.
 
 ## Documentation
 
@@ -92,12 +92,9 @@ run.py             Development entry point
 - [Architecture and workflows](docs/architecture.md)
 - [Database reference](docs/database.md)
 - [HTTP route reference](docs/routes.md)
-- [Known issues and verification scope](docs/known-issues.md)
-- [Preparing the repository for GitHub](docs/github-publication.md)
+- [Known issues](docs/known-issues.md)
 - [Contributing](CONTRIBUTING.md)
 
-## Credits and license
+## Credits
 
-The About page credits Ayman ELAKKAOUI and Badr FATOUH.
-
-No project license was included in the supplied archive. The maintainers should choose and add a license before representing this repository as licensed open source.
+Ayman ELAKKAOUI and Badr FATOUH.
