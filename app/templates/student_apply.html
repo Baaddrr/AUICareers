@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  .navbar {
+    background-color: #006400; 
+    padding: 15px 30px;
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+  }
+  .navbar-button {
+    background-color: white;
+    color: #006400;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-left: 12px; /* spacing between buttons */
+    display: inline-block;
+  }
+  .navbar-button:hover {
+    background-color: #e6e6e6;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 60px auto 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  h2 {
+    text-align: center;
+    color: #006400;
+    margin-bottom: 25px;
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+  }
+  button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+    background-color: #006400;
+    color: white;
+  }
+  button:hover {
+    background-color: #018701;
+  }
+</style>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a href="{{ url_for('main.student_view') }}" class="navbar-button">Home</a>
+  <a href="{{ url_for('main.logout') }}" class="navbar-button">Logout</a>
+</nav>
+
+<div class="container">
+  <h2>Apply for {{ job.title }}</h2>
+  <p><strong>Company:</strong> {{ job.company_id }}</p>
+  <p><strong>Description:</strong> {{ job.description }}</p>
+  <p><strong>Location:</strong> {{ job.location }}</p>
+  <p><strong>Salary:</strong> {{ job.salary }}</p>
+
+  <form method="POST">
+    <div class="form-group">
+      <label for="cover_letter">Cover Letter:</label>
+      <textarea name="cover_letter" id="cover_letter" rows="6" cols="50" required></textarea>
+    </div>
+    <button type="submit">Submit Application</button>
+  </form>
+</div>
+{% endblock %}

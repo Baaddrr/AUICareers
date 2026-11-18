@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About AUICareers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f3f4f6;
+        }
+
+        .navbar {
+            background-color: #006400;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: white;
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar-button {
+            background-color: white;
+            color: #006400;
+            padding: 8px 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-button:hover {
+            background-color: #e2e8f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #006400;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Green Navbar -->
+<div class="navbar">
+    <h1>AUICareers</h1>
+    <div class="navbar-links">
+        <a href="{{ url_for('main.index') }}" class="navbar-button">Home</a>
+        <a href="{{ url_for('main.login') }}" class="navbar-button">Login</a>
+    </div>
+</div>
+
+<!-- About Us Content -->
+<div class="container">
+    <h2>About AUICareers</h2>
+    <p>
+        AUICareers is a platform dedicated to connecting students with exciting career opportunities.
+        We aim to provide an easy-to-use job portal where students can browse, apply for jobs, and manage their profiles.
+    </p>
+    <p>
+        Our platform is designed to support admins in posting and managing job listings, while giving students
+        an intuitive experience to explore and apply for jobs that match their skills and interests.
+    </p>
+    <p>
+        Thank you for being part of AUICareers — your trusted career companion.
+    </p>
+    <P>
+        By Ayman ELAKKAOUI and Badr FATOUH
+    </P>  
+</div>
+
+</body>
+</html>

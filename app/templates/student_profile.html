@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  .navbar {
+    background-color: #006400; 
+    padding: 15px 30px;
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+  }
+  .navbar-button {
+    background-color: white;
+    color: #006400;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin-left: 12px; 
+    display: inline-block;
+  }
+  .navbar-button:hover {
+    background-color: #e6e6e6;
+  }
+</style>
+
+<div class="min-h-screen bg-gray-100">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="{{ url_for('main.student_view') }}" class="navbar-button">Home</a>
+        <a href="{{ url_for('main.logout') }}" class="navbar-button">Logout</a>
+    </nav>
+
+    <!-- Profile Card -->
+    <div class="max-w-2xl mx-auto mt-12 p-6 bg-white shadow-lg rounded-xl">
+        <h2 class="text-2xl font-bold text-green-700 text-center mb-6">Student Profile</h2>
+        
+        <div class="text-gray-800">
+            <h3 class="text-lg font-semibold mb-2">Personal Information</h3>
+            <p><strong>Name:</strong> {{ name or 'null' }}</p>
+            <p><strong>Email:</strong> {{ email or 'null' }}</p>
+            <p><strong>Major:</strong> {{ major or 'null' }}</p>
+            <p><strong>Graduation Year:</strong> {{ graduation_year or 'null' }}</p>
+            <p><strong>Bio:</strong> {{ bio or 'null' }}</p>
+        </div>
+
+        <div class="mt-6">
+            <a href="{{ url_for('main.update_student_profile') }}">
+                <button class="w-full py-2 bg-green-800 text-white font-semibold rounded-md hover:bg-green-900">
+                    Update Profile
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

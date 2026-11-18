@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  .navbar {
+    background-color: #006400; 
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .navbar-button {
+    background-color: white;
+    color: #006400;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  .navbar-button:hover {
+    background-color: #f0f0f0;
+  }
+</style>
+
+<div class="min-h-screen bg-gray-100">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1 class="text-white text-lg font-bold">AUICareers</h1>
+        <div class="space-x-4">
+            <a href="{{ url_for('main.student_profile') }}" class="navbar-button">
+                Profile
+            </a>
+            <a href="{{ url_for('main.logout') }}" class="navbar-button">
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <!-- Available Jobs -->
+    <div class="max-w-4xl mx-auto mt-8 px-4">
+        <h2 class="text-3xl font-bold text-center text-green-700 mb-6">Available Jobs</h2>
+
+        <!-- Search Bar -->
+        <form method="GET" action="{{ url_for('main.student_view') }}" class="mb-6">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search for a job..."
+                value="{{ request.args.get('search', '') }}"
+                class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-600 focus:outline-none"
+            />
+        </form>
+
+        {% if jobs %}
+            <div class="space-y-4">
+                {% for job in jobs %}
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-gray-800">{{ job.title }}</h3>
+                        <p class="text-sm text-gray-600">{{ job.description }}</p>
+                        <p class="text-sm text-gray-600"><strong>Location:</strong> {{ job.location }}</p>
+                        <p class="text-sm text-gray-600"><strong>Salary:</strong> {{ job.salary }}</p>
+                        <div class="text-right">
+                            <a href="{{ url_for('main.student_apply', job_id=job.job_id) }}">
+                                <button class="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800">
+                                    Apply
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-gray-600">No jobs found matching your search.</p>
+        {% endif %}
+    </div>
+
+    <!-- My Applications -->
+    <div class="max-w-4xl mx-auto mt-12 px-4">
+        <h2 class="text-2xl font-bold text-green-700 mb-4">My Applications</h2>
+
+        {% if applications %}
+            <div class="space-y-4">
+                {% for app in applications %}
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800">{{ app.job.title }}</h3>
+                        <p class="text-sm text-gray-600">{{ app.job.description }}</p>
+                        <p class="text-sm text-gray-600"><strong>Status:</strong>
+                            {% if app.status == 'pending' %}
+                                <span class="text-yellow-600">Pending</span>
+                            {% elif app.status == 'accepted' %}
+                                <span class="text-green-600">Accepted</span>
+                            {% elif app.status == 'declined' %}
+                                <span class="text-red-600">Declined</span>
+                            {% else %}
+                                {{ app.status }}
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-gray-600">You have not applied to any jobs yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- My Interviews -->
+    <div class="max-w-4xl mx-auto mt-12 px-4 mb-6">
+        <h2 class="text-2xl font-bold text-green-700 mb-4">My Interviews</h2>
+
+        {% if interviews %}
+            <div class="space-y-4">
+                {% for interview in interviews %}
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <p class="text-sm text-gray-600"><strong>Job ID:</strong> {{ interview.job_id }}</p>
+                        <p class="text-sm text-gray-600"><strong>Scheduled Time:</strong> {{ interview.scheduled_time.strftime('%Y-%m-%d %H:%M') }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-gray-600">No interviews have been scheduled yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- View Companies Button -->
+    <div class="text-center mb-12">
+        <a href="{{ url_for('main.view_companies') }}">
+            <button class="px-6 py-2 bg-green-700 text-white font-semibold rounded-md hover:bg-green-800">
+                View Companies
+            </button>
+        </a>
+    </div>
+</div>
+{% endblock %}

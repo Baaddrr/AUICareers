@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f1f3f5;
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        color: darkgreen;
+        margin-top: 40px;
+        font-weight: bold;
+    }
+
+    .nav-buttons {
+        background-color: darkgreen;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .nav-buttons a {
+        margin: 0 15px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .main-image {
+        margin: 30px auto;
+        width: 480px;
+        border-radius: 8px;
+    }
+
+    .subtitle {
+        margin: 20px auto;
+        max-width: 700px;
+        color: #333;
+    }
+</style>
+
+<div class="nav-buttons">
+    <a href="/login">Login</a>
+    <a href="/signup">Sign Up</a>
+    <a href="/aboutus">About Us</a>
+</div>
+
+<h1>Welcome to AUICareers</h1>
+<img src="https://www.theladders.com/wp-content/uploads/handshake_190617-800x450.jpg" class="main-image" alt="Handshake">
+<p class="subtitle">
+    Your gateway to career success. Explore opportunities and take the next step toward achieving your goals.
+</p>
+{% endblock %}

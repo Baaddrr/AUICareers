@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .navbar {
+        background-color: #006400;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar h1 {
+        color: white;
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .navbar-links {
+        display: flex;
+        gap: 15px;
+    }
+
+    .navbar-button {
+        background-color: white;
+        color: #006400;
+        padding: 8px 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .navbar-button:hover {
+        background-color: #e2e8f0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #006400;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-accept {
+        background-color: #28a745;
+    }
+
+    .btn-accept:hover {
+        background-color: #1e7e34;
+    }
+
+    .btn-decline {
+        background-color: #dc3545;
+    }
+
+    .btn-decline:hover {
+        background-color: #c82333;
+    }
+</style>
+
+<!-- Green Admin Navbar -->
+<div class="navbar">
+    <h1>AUICareers Admin</h1>
+    <div class="navbar-links">
+        <a href="{{ url_for('main.admin_view') }}" class="navbar-button">Home</a>
+        <a href="{{ url_for('main.logout') }}" class="navbar-button">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2>View Applications</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Job Title</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+                <tr>
+                    <td>{{ app.student.name }}</td>
+                    <td>{{ app.job.title }}</td>
+                    <td>{{ app.status }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <form action="{{ url_for('main.update_application_status', student_id=app.student_id, job_id=app.job_id, action='accept') }}" method="POST">
+                                <button type="submit" class="btn btn-accept">Accept</button>
+                            </form>
+                            <form action="{{ url_for('main.update_application_status', student_id=app.student_id, job_id=app.job_id, action='decline') }}" method="POST">
+                                <button type="submit" class="btn btn-decline">Decline</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f3f4f6;
+        }
+
+        .navbar {
+            background-color: #006400;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: white;
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .logout-button {
+            background-color: white;
+            color: #006400;
+            padding: 8px 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #006400;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            margin: 20px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .profile-info strong {
+            color: #006400;
+        }
+
+        .update-button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #006400;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .update-button:hover {
+            background-color: #004d00;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <h1>Admin Profile</h1>
+    <a href="{{ url_for('main.admin_view') }}" class="logout-button" style="margin-right: -975px; background-color: white; color: #006400;">HOME</a>
+    <a href="{{ url_for('main.logout') }}" class="logout-button">Logout</a>
+</div>
+
+<div class="container">
+    <h2>Profile Information</h2>
+    <div class="profile-info">
+        <p><strong>Name:</strong> {{ admin_user.name }}</p>
+        <p><strong>Email:</strong> {{ admin_user.email }}</p>
+        <p><strong>Department:</strong> {{ admin_profile.department if admin_profile and admin_profile.department else 'Null' }}</p>
+        <p><strong>Phone Number:</strong> {{ admin_profile.phone_number if admin_profile and admin_profile.phone_number else 'Null' }}</p>
+    </div>
+    <a href="{{ url_for('main.update_admin_profile') }}" class="update-button">Update Profile</a>
+</div>
+
+</body>
+</html>
